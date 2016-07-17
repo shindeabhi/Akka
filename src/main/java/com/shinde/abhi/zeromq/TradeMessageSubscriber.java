@@ -24,22 +24,17 @@ public class TradeMessageSubscriber {
         actorRef = akkaSystemInitialiser.getActorRef();
         actorSystem = akkaSystemInitialiser.getActorSystem();
         Integer i =0;
-        while (i<100) {
+        while (i<1000000) {
             i++;
             readMQTradeMessageAndForwardToActors(subscriber, actorRef);
         }
-        /*
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-        }
-        */
+        System.out.println("Completed reading million trade messages");
         // actorSystem.stop(actorRef);
         // actorSystem.shutdown();
     }
 
     private static void readMQTradeMessageAndForwardToActors(ZMQ.Socket subscriber, ActorRef actorRef) {
-        actorRef.tell(subscriber.recvStr(), actorRef);
+        actorRef.tell(subscriber.recv(), actorRef);
     }
 
     private static ZMQ.Socket setUpZeroMqListener() {
