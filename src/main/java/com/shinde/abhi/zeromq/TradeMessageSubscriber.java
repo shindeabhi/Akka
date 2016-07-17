@@ -24,13 +24,14 @@ public class TradeMessageSubscriber {
         actorRef = akkaSystemInitialiser.getActorRef();
         actorSystem = akkaSystemInitialiser.getActorSystem();
         Integer i =0;
-        while (i<1000000) {
+        while (i<500000) {
             i++;
             readMQTradeMessageAndForwardToActors(subscriber, actorRef);
         }
-        System.out.println("Completed reading million trade messages");
-        // actorSystem.stop(actorRef);
-        // actorSystem.shutdown();
+        /*
+        actorSystem.stop(actorRef);
+        actorSystem.shutdown();
+        */
     }
 
     private static void readMQTradeMessageAndForwardToActors(ZMQ.Socket subscriber, ActorRef actorRef) {

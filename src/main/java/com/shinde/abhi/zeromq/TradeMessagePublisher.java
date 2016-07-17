@@ -11,24 +11,23 @@ import java.math.BigDecimal;
  */
 public class TradeMessagePublisher {
 
-    public static final Integer NOS_OF_MESSAGE_TO_PUBLISH = 1;
 
     public static void main(String[] args) {
         try {
             ZMQ.Context ctx = ZMQ.context(1);
             ZMQ.Socket publisher = ctx.socket(ZMQ.PUB);
             publisher.bind("tcp://*:5556");
-            Integer i=1;
+            Integer i = 1;
             while (true) {
                 publisher.send(
-                SerializationUtils.serialize(new TradeMessageBuilder().
-                        withTxnId(i).
-                        withDirection("BUY").
-                        withQty(100).
-                        withPrice(BigDecimal.valueOf(12.098)).
-                        withCounterParty("TESLA").
-                        withTradeDate("20160717").
-                        createTradeMessage()));
+                        SerializationUtils.serialize(new TradeMessageBuilder().
+                                withTxnId(i).
+                                withDirection("BUY").
+                                withQty(100).
+                                withPrice(BigDecimal.valueOf(12.098)).
+                                withCounterParty("TESLA").
+                                withTradeDate("20160717").
+                                createTradeMessage()));
                 i++;
             }
 
